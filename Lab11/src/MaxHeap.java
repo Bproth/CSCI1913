@@ -2,49 +2,83 @@
 public class MaxHeap<T extends Comparable<T>> extends BinaryTree<T>
 {
 	private TreeNode<T> root;
+	
+	public MaxHeap() {
+		root = new TreeNode<T>();
+	}
+	
+	public MaxHeap(T obj) {
+		root = new TreeNode<T>(obj);
+	}
 
-	private void lSwap(TreeNode<T> cur, TreeNode<T> trail)
+	private void swap(TreeNode<T> cur, TreeNode<T> trail)
 	{
-		cur.getLeft().setRight(cur.getRight());
-		cur.getLeft().setLeft(cur);
-		cur = cur.getLeft();
-		trail.setLeft(cur);
+		T temp = trail.getData();
+		trail.setData(cur.getData());
+		cur.setData(temp);
 	}
 	
-	private void rSwap(TreeNode<T> cur, TreeNode<T> trail)
-	{
-		cur.getRight().setLeft(cur.getLeft());
-		cur.getRight().setRight(cur);
-		cur = cur.getRight();
-		trail.setLeft(cur);
+	private int compare(TreeNode<T> cur, TreeNode<T> trail){
+		return cur.getData().compareTo(trail.getData());
 	}
-	
+
 	@Override
-	public boolean add(T obj)
+	public boolean add(T input)
 	{
-		TreeNode<T> cur = root;
-		while(cur.getLeft() != null)
+		TreeNode<T> cur = new TreeNode<T>();
+		TreeNode<T> trail = new TreeNode<T>();
+		TreeNode<T> in = new TreeNode<T>(input);
+		Queue<TreeNode<T>> q = new Queue<TreeNode<T>>();
+		
+		cur = root;
+		while (true)
 		{
-			cur = cur.getLeft();
+			if (cur.getLeft() == null)
+			{
+				cur.setLeft(in);
+				trail = cur;
+				cur = cur.getLeft();
+				break;
+			}
+			q.add(cur.getLeft());
+			if (cur.getRight() == null)
+			{
+				cur.setRight(in);
+				trail = cur;
+				cur = cur.getRight();
+				break;
+			}
+			q.add(cur.getRight());
+			cur = q.remove();
 		}
-		cur.setLeft(new TreeNode<T>(obj));
-		heapify();
+		if (compare(cur, trail) < 0)
+		{
+			return true;
+		}
+		else
+		{
+
+		}
 		return true;
 	}
 	
-	public void heapify()
+	public void heapify(TreeNode<T> top)
 	{
-		TreeNode<T> cur = root;
-		TreeNode<T> trail = new TreeNode<T>();
-		while(cur.getLeft() != null)
+		if(top.getLeft() != null)
 		{
-			trail = cur;
-			cur = cur.getLeft();
+			if (top.getLeft().getData().compareTo(top.getData()) > 0)
+			{
+				swap(top.getLeft(), top);
+			}
+			heapify(top.getLeft());
 		}
-		if (cur.getLeft().getData().compareTo(cur.getData()) > 0)
+		if(top.getRight() != null)
 		{
-			swap(cur, trail);
+			if (top.getRight().getData().compareTo(top.getData()) > 0)
+			{
+				swap(top.getRight(), top);
+			}
+			heapify(top.getRight());
 		}
-		if (cur.getRight().getData().compareTo(cur.getData()) > 0)
 	}
 }

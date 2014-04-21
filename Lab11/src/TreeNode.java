@@ -2,58 +2,47 @@ public class TreeNode<T extends Comparable<T>>
 {
 	 private T data; 
 	 private TreeNode<T> right = null; 
-	 private TreeNode<T> left = null; 
+	 private TreeNode<T> left = null;
 
-
-	 public TreeNode()
-	 {
+	 public TreeNode(){
 		 data = null;
 	 }
 	 
-	 public TreeNode(T d)
-	 {
+	 public TreeNode(T d){
 		 data = d;
 	 }
 
-	 public TreeNode(T d, TreeNode<T> l, TreeNode<T> r)
-	 {
+	 public TreeNode(T d, TreeNode<T> l, TreeNode<T> r){
 		 data = d;
 		 left = l;
 		 right = r;
 	 }
 	 
-	 public T getData()
-	 {
+	 public T getData(){
 		 return data;
 	 }
 	 
-	 public TreeNode<T> getLeft()
-	 {
+	 public TreeNode<T> getLeft(){
 		 return left;
 	 }
 	 
-	 public TreeNode<T> getRight()
-	 {
+	 public TreeNode<T> getRight(){
 		 return right;
 	 }
 	 
-	 public void setData(T dat)
-	 {
+	 public void setData(T dat){
 		 data = dat;
 	 }
 	 
-	 public void setLeft(TreeNode<T> l)
-	 {
+	 public void setLeft(TreeNode<T> l){
 		 left =l;
 	 }
 	 
-	 public void setRight(TreeNode<T> r)
-	 {
+	 public void setRight(TreeNode<T> r){
 		 right =r;
 	 }
 	 
-	 public String toString()
-	 {
+	 public String toString(){
 		 String out = "";
 		 if (left != null)
 		 {
@@ -74,8 +63,7 @@ public class TreeNode<T extends Comparable<T>>
 		 return out; 
 	 }
 
-	 public boolean dfs(T obj)
-	 {
+	 public boolean dfs(T obj){
 		 if (data.equals(obj))
 		 {
 			 return true;
@@ -105,8 +93,7 @@ public class TreeNode<T extends Comparable<T>>
 		 }
 	 }
 
-	 public T getRightMost()
-	 {
+	 public T getRightMost(){
 		 if (right != null)
 		 {
 			 return right.getRightMost();
@@ -117,8 +104,7 @@ public class TreeNode<T extends Comparable<T>>
 		 }
 	 }
 
-	 public void removeRightMost()
-	 {
+	 public void removeRightMost(){
 		 if (right.getRight() != null)
 		 {
 			 right.getRightMost();
